@@ -1,32 +1,61 @@
+h1, h2, h3, h4 {
+    margin: 0;
+}
+
 .game {
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+}
+
+.header {
+    text-align: center;
+    padding: 15px;
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    background-color: darkcyan;
+    width: 309px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .box {
     display: flex;
     flex-wrap: wrap;
-    min-width: 405px;
-    min-height: 405px;
-    width: 405px;
-    height: 405px;
+    min-width: 335px;
+    min-height: 335px;
+    width: 335px;
+    height: 335px;
     background-color: #949494;
     border: #535353 solid;
 }
 
 .box li {
     list-style: none;
-    background-color: #c8c8c8;
+    background-color: #b1b1b1;
     width: 15px;
     height: 15px;
-    margin: 5px;
+    margin: 1px;
     padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.box .close {
+    background-color: #d8d8d8;
+}
+
+.box .bombExploded {
+    background-color: #a53939;
+}
+
+.box .loseBomb {
+    background-color: #818181;
 }
 
 .box li img {
