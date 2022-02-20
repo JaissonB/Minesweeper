@@ -7,6 +7,8 @@ var matriz = [];
 var responseMatriz = [];
 var vectors = [];
 
+var blocksEmpty = [];
+
 //Muda a quantidade de bombas conforme o tamanho da matriz
 function defQuantityOfBombs () {
     switch (lado) {
@@ -72,9 +74,13 @@ function spreadNumbers () {
                     }
                 }
                 matriz[i][j] = quantityOfBombsAround;
+                if (!quantityOfBombsAround) {
+                    blocksEmpty.push([i, j]);
+                }
             }
         }
     }
+    console.log(blocksEmpty)
     responseMatriz = matriz;
     buildVisualMatriz();
 }
@@ -133,20 +139,41 @@ function openBlock (element) {
         if (responseMatriz[linha][coluna] == 'X') loseGame(element);
         else if (responseMatriz[linha][coluna] == 0) {
             element.textContent = '';
-            // openAroundBlocks(linha, coluna);
+            openAroundBlocks(linha, coluna);
         }
     }
 }
 
 function openAroundBlocks (lin, col) {
-    var exists = true;
-    while (exists) {
-        for (var i = 0; i < lado; i ++) {
-            for (var j = 0; j < lado; j ++) {
-                //AAAAAAAAAAAAAAHHHHHHHHHHHHHHHHHHHHHHHH tem que abrir vários
+    var exists = 1;
+    var el = document.querySelector(`#li-${lin}-${col}`);
+    console.log(`#li-${lin}-${col}`)
+    console.log(lin, col)
+    console.log(el)
+    el.classList.remove('close');
+    el.textContent = '';
+    // while (exists) {
+        var i = 0
+        for (i; i < blocksEmpty.length; i ++) {
+            var a = blocksEmpty[i][0];
+            var b = blocksEmpty[i][1];
+            console.log("A:", Math.abs(a - lin) < 2)
+            console.log("B:", Math.abs(b - col) < 2)
+            // break
+            el = document.querySelector(`#li-${a}-${b}`);
+            if ((Math.abs(a - lin) < 2 && Math.abs(b - col) < 2) ) {
+                console.log(el)
+                el.classList.remove('close');
+                el.textContent = responseMatriz[a][b];
+                if (responseMatriz[a][b] === 0) el.textContent = '';
+                exists ++;
             }
+            console.log(exists)
         }
-    }
+    //     if (exists > 1) exists = 1;
+    //     else exists = 0;
+    // } 
+    //((abs(ar.a - lin) < 2 && abs(ar.b - col) < 2) && ((abs(ar.a - lin) + abs(ar.b - col)) < 3) && el.hasClass('close'))
 }
 
 function loseGame (element) {
