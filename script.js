@@ -111,12 +111,16 @@ function showBlocks (element) {
     } else {
         if (!(parseInt(element.textContent) >= 0 || element.textContent == 'X') && document.querySelector(`#${id} img`) == null) {
             element.innerHTML = '<img src="./imgs/bandeiraRussia.png">';
+            element.classList.remove('close');
         } else if (document.querySelector(`#${id} img`) != null) {
             element.innerHTML = '';
+            element.classList.add('close');
         }
     }
+    winGame();
 }
 
+//
 function openBlock (element) {
     var id = element.id;
     var linha = id[3];
@@ -144,6 +148,7 @@ function openBlock (element) {
     }
 }
 
+//
 function openAroundBlocks (lin, col) {
     var exists = 1;
     var el = document.querySelector(`#li-${lin}-${col}`);
@@ -176,6 +181,7 @@ function openAroundBlocks (lin, col) {
     //((abs(ar.a - lin) < 2 && abs(ar.b - col) < 2) && ((abs(ar.a - lin) + abs(ar.b - col)) < 3) && el.hasClass('close'))
 }
 
+//
 function loseGame (element) {
     for (var i = 0; i < lado; i ++) {
         for (var j = 0; j < lado; j ++) {
@@ -190,4 +196,20 @@ function loseGame (element) {
     }
     element.classList.remove('loseBomb');
     element.classList.add('bombExploded');
+}
+
+//
+function winGame () {
+    var nBandeiras = 0;
+    var allBlocksOpen = true;
+    for (var i = 0; i < lado; i ++) {
+        for (var j = 0; j < lado; j ++) {
+            var el = document.querySelector(`#li-${i}-${j}`);
+            if (el.classList.contains('close')) allBlocksOpen = false;
+            if (document.querySelector(`#li-${i}-${j} img`) != null) nBandeiras ++;
+        }
+    }
+    if (allBlocksOpen && (nBandeiras == defQuantityOfBombs())) {
+        document.querySelector('.endGame').style.display = 'flex';
+    }
 }
