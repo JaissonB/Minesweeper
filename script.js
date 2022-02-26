@@ -211,5 +211,6 @@ function winGame () {
     }
     if (allBlocksOpen && (nBandeiras == defQuantityOfBombs())) {
         document.querySelector('.endGame').style.display = 'flex';
+        document.querySelector('.modalWin').style.display = 'flex';
     }
 }

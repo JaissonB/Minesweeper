@@ -84,8 +84,8 @@ button {
     left: 1;
 }
 
-.modalWin {
-    display: flex;
+.modal {
+    display: none;
     justify-content: center;
     align-items: center;
     max-width: 310px;
@@ -95,7 +95,7 @@ button {
     border-radius: 5px;
 }
 
-.modalWin-container {
+.modal-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -103,19 +103,21 @@ button {
     flex-wrap: wrap;
 }
 
-.modalWin-container h4 {
+.modal-container h4 {
     font-size: 20px;
 }
 
-.modalWin-container div {
+.modal-container div {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
 }
 
-.modalWin-container div button:first-child {
+.modal-container div button:first-child {
     margin-right: 15px;
     background-color: darkcyan;
     font-weight: bold;
 }
+
+/*Melhorar css para aproveitar estilos para os dois modais*/
