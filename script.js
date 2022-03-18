@@ -196,6 +196,8 @@ function loseGame (element) {
     }
     element.classList.remove('loseBomb');
     element.classList.add('bombExploded');
+    document.querySelector('.endGame').style.display = 'flex';
+    document.querySelector('.modalLose').style.display = 'flex';
 }
 
 //
@@ -213,4 +215,12 @@ function winGame () {
         document.querySelector('.endGame').style.display = 'flex';
         document.querySelector('.modalWin').style.display = 'flex';
     }
+}
+
+function resetGame () {
+    document.querySelector('.endGame').style.display = 'none';
+    document.querySelector('.modalWin').style.display = 'none';
+    document.querySelector('.modalLose').style.display = 'none';
+    document.querySelector('.box').innerHTML = "";
+    initMatriz();
 }
