@@ -10,11 +10,13 @@
         <div class="container">
             <div class="header">
                 <h3>Campo Minado</h3>
-                <!-- <ul>
-                    <li></li>
-                    <li></li>
-                    <li></li>
-                </ul> -->
+                <nav class="nav-options">
+                    <ul>
+                        <li class="li-play" onclick="resetGame()">Jogar</li>
+                        <li></li>
+                        <li class="li-flags">10</li>
+                    </ul>
+                </nav>
             </div>  
             <div class="box">
                 
@@ -34,7 +36,7 @@
                         <h4>Você Perdeu!</h4>
                         <div>
                             <button class="btn-playAgain" onclick="resetGame()">Jogar novamente</button>
-                            <button>Sair</button>
+                            <button class="btn-exit" onclick="closeModal()">Sair</button>
                         </div>
                     </div>
                 </div>

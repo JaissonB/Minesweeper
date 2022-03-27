@@ -1,5 +1,6 @@
 var lado = 9; //9(81-10) - 13(169-25) - 21(441-80)
 var size = lado * lado;
+var flags = 10;
 
 var nivel = 1;
 
@@ -45,6 +46,7 @@ function getRandomInt () {
 
 //Espalha aleatóriamente as minas pela matriz
 function spreadBombs () {
+    document.querySelector('.li-flags').textContent = 10;
     for (var i = 0; i < defQuantityOfBombs(); i ++) {
         var linha = getRandomInt();
         var coluna = getRandomInt();
@@ -100,8 +102,9 @@ function buildVisualMatriz () {
     }
 }
 
-//Essa função é chamada mo evento 'onmousedown' do HTML e é responsável por mostrar a casa ou colocar a bandeira na casa
+//Chamada no evento 'onmousedown' do HTML e é responsável por mostrar a casa ou colocar a bandeira na casa
 function showBlocks (element) {
+    var liFlags = document.querySelector('.li-flags');
     window.event.preventDefault()
     var id = element.id;
 
@@ -112,15 +115,18 @@ function showBlocks (element) {
         if (!(parseInt(element.textContent) >= 0 || element.textContent == 'X') && document.querySelector(`#${id} img`) == null) {
             element.innerHTML = '<img src="./imgs/bandeiraRussia.png">';
             element.classList.remove('close');
+            flags--;
         } else if (document.querySelector(`#${id} img`) != null) {
             element.innerHTML = '';
             element.classList.add('close');
+            flags++;
         }
+        liFlags.textContent = flags;
     }
     winGame();
 }
 
-//
+//Abre a casa que for clicada com o botão esquerdo do mouse, diferenciando casas com bomba, vazias ou com seus respectivos numeros
 function openBlock (element) {
     var id = element.id;
     var linha = id[3];
@@ -148,40 +154,25 @@ function openBlock (element) {
     }
 }
 
-//
+//Abre algumas casas ao redor da casa clicada se essa for vazia
 function openAroundBlocks (lin, col) {
-    var exists = 1;
     var el = document.querySelector(`#li-${lin}-${col}`);
-    console.log(`#li-${lin}-${col}`)
-    console.log(lin, col)
-    console.log(el)
     el.classList.remove('close');
     el.textContent = '';
-    // while (exists) {
-        var i = 0
-        for (i; i < blocksEmpty.length; i ++) {
-            var a = blocksEmpty[i][0];
-            var b = blocksEmpty[i][1];
-            console.log("A:", Math.abs(a - lin) < 2)
-            console.log("B:", Math.abs(b - col) < 2)
-            // break
-            el = document.querySelector(`#li-${a}-${b}`);
-            if ((Math.abs(a - lin) < 2 && Math.abs(b - col) < 2) ) {
-                console.log(el)
-                el.classList.remove('close');
-                el.textContent = responseMatriz[a][b];
-                if (responseMatriz[a][b] === 0) el.textContent = '';
-                exists ++;
-            }
-            console.log(exists)
+
+    for (var i = 0; i < blocksEmpty.length; i ++) {
+        var a = blocksEmpty[i][0];
+        var b = blocksEmpty[i][1];
+        el = document.querySelector(`#li-${a}-${b}`);
+        if ((Math.abs(a - lin) < 2 && Math.abs(b - col) < 2)) {
+            el.classList.remove('close');
+            el.textContent = responseMatriz[a][b];
+            if (responseMatriz[a][b] === 0) el.textContent = '';
         }
-    //     if (exists > 1) exists = 1;
-    //     else exists = 0;
-    // } 
-    //((abs(ar.a - lin) < 2 && abs(ar.b - col) < 2) && ((abs(ar.a - lin) + abs(ar.b - col)) < 3) && el.hasClass('close'))
+    }
 }
 
-//
+//É chamada quando uma bomba é encontrada, mostra o modal de jogo perdido
 function loseGame (element) {
     for (var i = 0; i < lado; i ++) {
         for (var j = 0; j < lado; j ++) {
@@ -200,7 +191,7 @@ function loseGame (element) {
     document.querySelector('.modalLose').style.display = 'flex';
 }
 
-//
+//É chamada quando o jogo é ganho, mostra o modal de jogo ganhado
 function winGame () {
     var nBandeiras = 0;
     var allBlocksOpen = true;
@@ -217,10 +208,18 @@ function winGame () {
     }
 }
 
+//Começa um novo jogo
 function resetGame () {
     document.querySelector('.endGame').style.display = 'none';
     document.querySelector('.modalWin').style.display = 'none';
     document.querySelector('.modalLose').style.display = 'none';
     document.querySelector('.box').innerHTML = "";
     initMatriz();
+}
+
+//Fecha os modais de vitória ou derrota
+function closeModal () {
+    document.querySelector('.endGame').style.display = 'none';
+    document.querySelector('.modalWin').style.display = 'none';
+    document.querySelector('.modalLose').style.display = 'none';
 }
