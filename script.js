@@ -46,7 +46,8 @@ function getRandomInt () {
 
 //Espalha aleatóriamente as minas pela matriz
 function spreadBombs () {
-    document.querySelector('.li-flags').textContent = 10;
+    flags = 10;
+    document.querySelector('.li-flags').textContent = flags;
     for (var i = 0; i < defQuantityOfBombs(); i ++) {
         var linha = getRandomInt();
         var coluna = getRandomInt();
