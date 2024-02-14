@@ -1,8 +1,6 @@
-# CampoMinado
+# Minesweeper Game
 
-Criando mini-game baseado no famoso jogo de campo minado. </br>
-(Sem auxílio de cursos ou vídeos prontos)
+Trying to build a Minesweeper game in my spare time. </br>
+Without any help and just for fun.
 
-- JavaScript
-- html
-- css
+(Not finished project)
